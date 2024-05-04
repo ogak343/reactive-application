@@ -1,0 +1,24 @@
+spring:
+  main:
+    web-application-type: reactive
+  profiles:
+    active: local
+  liquibase:
+    default-schema: public
+    liquibase-schema: public
+    change-log: classpath:/db/changelog/changelog_init.xml
+    url: jdbc:postgresql://localhost:5432/postgres
+    user: postgres
+    password: slark343
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: slark343
+server:
+  servlet:
+    context-path: /reactive
+
+app:
+  variables:
+    file:
+      path: static/file.png
