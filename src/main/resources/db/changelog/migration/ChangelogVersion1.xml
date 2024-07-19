@@ -5,13 +5,16 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet id="1" author="Ogabek">
-        <sql>
-            CREATE TABLE notification (
-                id bigserial primary key,
-                message varchar,
-                type varchar
-            );
-        </sql>
+        <createTable tableName="users">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="firstname" type="varchar"/>
+            <column name="lastname" type="varchar"/>
+            <column name="username" type="varchar"/>
+        </createTable>
+
+        <createSequence sequenceName="user_primary_key" minValue="1" incrementBy="1" startValue="1"/>
     </changeSet>
 
 </databaseChangeLog>

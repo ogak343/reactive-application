@@ -7,13 +7,13 @@ spring:
     default-schema: public
     liquibase-schema: public
     change-log: classpath:/db/changelog/changelog_init.xml
-    url: jdbc:postgresql://localhost:5432/postgres
-    user: postgres
-    password: slark343
+    url: jdbc:postgresql://localhost:5432/flux_db
+    user: flux
+    password: flux
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: slark343
+    url: r2dbc:postgresql://localhost:5432/flux_db
+    username: flux
+    password: flux
 server:
   servlet:
     context-path: /reactive
