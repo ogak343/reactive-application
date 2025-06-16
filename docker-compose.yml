@@ -1,0 +1,47 @@
+
+services:
+  postgres_database:
+    image: postgres:15
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: reactive
+      POSTGRES_USER: reactive
+      POSTGRES_PASSWORD: reactive
+    networks:
+      - reactive-app-network
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq_broker
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: notification
+      RABBITMQ_DEFAULT_PASS: notification
+    ports:
+      - "5672:5672"  # RabbitMQ service port
+      - "15672:15672" # Management UI port
+    networks:
+      - reactive-app-network
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+  reactive-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    container_name: reactive-app
+    depends_on:
+      - postgres_database
+      - rabbitmq
+    networks:
+      - reactive-app-network
+
+networks:
+  reactive-app-network:
+
+volumes:
+  postgres-data:
+  rabbitmq-data:

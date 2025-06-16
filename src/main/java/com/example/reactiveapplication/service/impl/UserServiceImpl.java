@@ -19,11 +19,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Mono<UserResp> create(UserCreate dto) {
 
-        return repository.save(mapper.toModel(dto)).map(mapper::toResp);
+        return repository.save(mapper.toModel(dto))
+                .map(mapper::toResp);
     }
 
     @Override
     public Mono<UserResp> get(Long id) {
-        return repository.findById(id).map(mapper::toResp);
+        return repository.findById(id)
+                .map(mapper::toResp);
     }
 }

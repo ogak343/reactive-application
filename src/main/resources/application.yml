@@ -1,24 +1,27 @@
 spring:
-  main:
-    web-application-type: reactive
   profiles:
     active: local
   liquibase:
     default-schema: public
     liquibase-schema: public
     change-log: classpath:/db/changelog/changelog_init.xml
-    url: jdbc:postgresql://localhost:5432/flux_db
-    user: flux
-    password: flux
+    url: jdbc:postgresql://${DB_HOST:postgres_database}:${DB_PORT:5432}/${DB_NAME:reactive}
+    user: ${DB_USER:reactive}
+    password: ${DB_PASSWORD:reactive}
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/flux_db
-    username: flux
-    password: flux
-server:
-  servlet:
-    context-path: /reactive
+    url: r2dbc:postgresql://${DB_HOST:postgres_database}:${DB_PORT:5432}/${DB_NAME:reactive}
+    username: ${DB_USER:reactive}
+    password: ${DB_PASSWORD:reactive}
 
-app:
-  variables:
-    file:
-      path: static/file.png
+config:
+  rabbit:
+    url: ${RABBIT_HOST:localhost}
+    username: ${RABBIT_USERNAME:notification}
+    password: ${RABBIT_PASSWORD:notification}
+springdoc:
+  api-docs:
+    path: /v3/api-doc
+  swagger-ui:
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+
